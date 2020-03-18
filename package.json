@@ -1,0 +1,25 @@
+{
+  "name": "matagi-test",
+  "version": "1.0.0",
+  "description": "REST API menggunakan Express, MySQL, NodeJS, Objection,Knex",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nnadnad/MTG-Intern-Test.git"
+  },
+  "author": "nnadnad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nnadnad/MTG-Intern-Test/issues"
+  },
+  "homepage": "https://github.com/nnadnad/MTG-Intern-Test#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.20.11",
+    "mysql": "^2.18.1",
+    "objection": "^2.1.3"
+  }
+}
