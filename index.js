@@ -8,13 +8,13 @@ app.use(express.urlencoded());
 /**
  * endpoints
  */
-app.use('/api',
-    require('./api/getUser').router,
-    require('./api/getUserId').router,
-    require('./api/addUser').router,
-    require('./api/putUser').router,
-    require('./api/patchUser').router,
-    require('./api/delUser').router,
+app.use('/api/v1',
+    require('./api/v1/getUser').router,
+    require('./api/v1/getUserId').router,
+    require('./api/v1/addUser').router,
+    require('./api/v1/putUser').router,
+    require('./api/v1/patchUser').router,
+    require('./api/v1/delUser').router,
     );
 
 app.listen(port, () => {
