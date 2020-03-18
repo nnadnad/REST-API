@@ -8,6 +8,9 @@ app.use(express.urlencoded());
 /**
  * endpoints
  */
+app.use('/documentation/v1',
+    require('./documentation/v1/documentation').router);
+
 app.use('/api/v1',
     require('./api/v1/getUser').router,
     require('./api/v1/getUserId').router,
