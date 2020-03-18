@@ -16,16 +16,16 @@ const { nameRE, idRE, invalidId, invalidName, notFound } = require('./regex');
 router.patch('/users/:id', (req, res) => {
 
     let oldId = req.params.id;
-    let { Name, IndonesianId, Birthday } = req.body;
+    let { Name, ID, Birthday } = req.body;
 
     if ( Name !== undefined && Name.match(nameRE) === null ) {
         res.json(invalidName)
-    } else if ( IndonesianId !== undefined && IndonesianId.match(idRE) === null ) {
+    } else if ( ID !== undefined && ID.match(idRE) === null ) {
         res.json(invalidId)
     } else {
         User.query()
             .where({
-                IndonesianId: oldId,
+                ID: oldId,
                 deletedAt: '0000-00-00 00:00:00'
             })
             .then(users => {
@@ -33,12 +33,12 @@ router.patch('/users/:id', (req, res) => {
                     let user = users[0];
                     User.query()
                         .where({
-                            IndonesianId: oldId,
+                            ID: oldId,
                             deletedAt: '0000-00-00 00:00:00'
                         })
                         .update({
                             Name: Name || user.Name,
-                            IndonesianId: IndonesianId || oldId,
+                            ID: ID || oldId,
                             Birthday: Birthday || user.Birthday,
                             updatedAt: knex.raw("CURRENT_TIMESTAMP")
                         })

@@ -16,7 +16,7 @@ const { nameRE, idRE, invalidId, invalidName, notFound } = require('./regex');
 
 router.put('/users/:id', (req, res) => {
     let oldId = req.params.id;
-    let { Name, IndonesianId, Birthday } = req.body;
+    let { Name, ID, Birthday } = req.body;
     console.log(req.body);
 
     // periksa kelengkapan data
@@ -26,7 +26,7 @@ router.put('/users/:id', (req, res) => {
     } else if ( Name === undefined ) {
         res.status(400);
         res.json({"message": "no name specified"})
-    } else if ( IndonesianId === undefined) {
+    } else if ( ID === undefined) {
         res.status(400);
         res.json({"message": "no id specified"})
     } else if ( Birthday === undefined ) {
@@ -37,13 +37,13 @@ router.put('/users/:id', (req, res) => {
         if ( Name.match(nameRE) === null ) {
             res.status(400);
             res.json(invalidName)
-        } else if ( IndonesianId.match(idRE) === null || oldId.match(idRE) === null ) {
+        } else if ( ID.match(idRE) === null || oldId.match(idRE) === null ) {
             res.status(400);
             res.json(invalidId)
         } else {
             User.query()
                 .where({ // periksa instance dengan id yang sama dan belum 'dihapus'
-                    IndonesianId: IndonesianId,
+                    ID: ID,
                     deletedAt: '0000-00-00 00:00:00'
                 })
                 .then(users => {
@@ -52,7 +52,7 @@ router.put('/users/:id', (req, res) => {
                         User.query()
                             .insert({
                                 Name: Name,
-                                IndonesianId: IndonesianId,
+                                ID: ID,
                                 Birthday: Birthday
                             })
                             .then(() => {
@@ -66,12 +66,12 @@ router.put('/users/:id', (req, res) => {
                         User.query()
                             .update({
                                 Name: Name,
-                                IndonesianId: IndonesianId,
+                                ID: ID,
                                 Birthday: Birthday,
                                 updatedAt: knex.raw("CURRENT_TIMESTAMP")
                             })
                             .where({
-                                IndonesianId: IndonesianId,
+                                ID: ID,
                                 deletedAt: '0000-00-00 00:00:00'
                             })
                             .then(() => {

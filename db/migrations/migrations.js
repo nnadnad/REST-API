@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
         t.string('Name')
             .notNullable();
   
-        t.string('IndonesianID', 16)
+        t.string('ID', 16)
             .notNullable();
   
         t.datetime('Birthday')

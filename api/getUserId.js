@@ -24,7 +24,7 @@ router.get('/users/:id', (req, res) => {
 
         User.query()
             .where({
-                IndonesianId: id,
+                ID: id,
                 deletedAt: '0000-00-00 00:00:00'
             })
             .then(users => {

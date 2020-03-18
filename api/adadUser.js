@@ -15,13 +15,13 @@ const { nameRE, idRE, invalidId, invalidName, notFound } = require('./regex')
 
 
 router.post('/users', (req, res) => {
-    let { Name, IndonesianId, Birthday } = req.body;
+    let { Name, ID, Birthday } = req.body;
 
     // periksa kelengkapan data
     if ( Name === undefined ) {
         res.status(400);
         res.json({"message": "no name specified"})
-    } else if ( IndonesianId === undefined ) {
+    } else if ( ID === undefined ) {
         res.status(400);
         res.json({"message": "no id specified"})
     } else if ( Birthday === undefined ) {
@@ -31,13 +31,13 @@ router.post('/users', (req, res) => {
         if ( Name.match(nameRE) === null ) {
             res.status(400);
             res.json(invalidName)
-        } else if ( IndonesianId.match(idRE) === null ) {
+        } else if ( ID.match(idRE) === null ) {
             res.status(400);
             res.json(invalidId)
         } else {
             User.query()
                 .where({ // periksa instance dengan id yang sama dan belum 'dihapus'
-                    IndonesianId: IndonesianId,
+                    ID: ID,
                     deletedAt: '0000-00-00 00:00:00'
                 })
                 .then(users => {
@@ -45,7 +45,7 @@ router.post('/users', (req, res) => {
                         User.query()
                             .insert({
                                 Name: Name,
-                                IndonesianId: IndonesianId,
+                                ID: ID,
                                 Birthday: Birthday
                             })
                             .then(() => {

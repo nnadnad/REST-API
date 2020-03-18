@@ -14,11 +14,11 @@ const { nameRE, idRE, invalidId, invalidName, notFound } = require('./regex');
  */
 
 router.delete('/users/:id', (req, res) => {
-    let IndonesianId = req.params.id;
+    let ID = req.params.id;
 
-    if ( IndonesianId.match(idRE) !== null ) {
+    if ( ID.match(idRE) !== null ) {
         User.query()
-        .where("IndonesianId", IndonesianId)
+        .where("ID", ID)
         .then(users => {
             if ( users.length === 0 ) {
                 res.status(404);
@@ -28,7 +28,7 @@ router.delete('/users/:id', (req, res) => {
                     .update({
                         deletedAt: knex.raw('CURRENT_TIMESTAMP')
                     })
-                    .where('IndonesianId', IndonesianId)
+                    .where('ID', ID)
                     .then(() => {
                         res.json({"message": "user deleted successfully"})
                     })
